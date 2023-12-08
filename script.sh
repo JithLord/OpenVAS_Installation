@@ -32,3 +32,12 @@ sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database
 gvm-check-setup
 echo "username and password are admin"
 sudo runuser -u _gvm -- gvmd --create-user=admin --password=admin   
+
+tail -f gvmd.log
+
+service postgresql stop
+greenbone-feed-sync --type GVMD_DATA
+greenbone-feed-sync --type SCAP
+greenbone-feed-sync --type CERT
+
+gvm-start
